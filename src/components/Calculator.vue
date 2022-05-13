@@ -1,8 +1,19 @@
 <script setup>
-import { reactive, ref } from 'vue'
+import { computed, ref } from 'vue'
 
-const percentageMessage = ref('Uzupełnij oba pola...')
-const gradeMessage = ref('Uzupełnij oba pola...')
+const gotPoints = ref('')
+const maxPoints = ref('')
+
+function getPercentage() {
+	let percentage
+	if (!gotPoints.value || !maxPoints.value) {
+		percentage = 'Uzupełnij oba pola'
+		return percentage
+	} else {
+		percentage = gotPoints.value / maxPoints.value * 100
+		return `${percentage.toFixed(2)} %`
+	}
+}
 
 </script>
 
@@ -11,33 +22,26 @@ const gradeMessage = ref('Uzupełnij oba pola...')
 
 	<h1>Kalkulator ocen</h1>
 
-		<div class="points-div">
-
 			<div class="box">
 				<h3>Zdobyte punkty</h3>
-				<input :value="number" type="number" placeholder="Liczba zdobytych punktów">
+				<input v-model.number="gotPoints" placeholder="Liczba zdobytych punktów">
 			</div>
 
 			<div class="box">
 				<h3>Maksymalne punkty</h3>
-				<input :value="number" type="number" placeholder="Maksymalna liczba punktów">
+				<input v-model.number="maxPoints" placeholder="Maksymalna liczba punktów">
 			</div>
 
-		</div>
-
-		<div class="grade-div">
 
 			<div class="box">
 				<h3>Procent zdobytych punktów</h3>
-				<p>{{ percentageMessage }}</p>
+				<p>{{ getPercentage() }}</p>
 			</div>
 
 			<div class="box">
 				<h3>Sugerowana ocena</h3>
-				<p>{{ gradeMessage }}</p>
+				<p></p>
 			</div>
-
-		</div>
 
 </div>
 </template>
@@ -56,6 +60,10 @@ input::-webkit-inner-spin-button {
 
 input[type=number] {
 	-moz-appearance: textfield;
+}
+
+p {
+	font-size: large;
 }
 
 .calc-container {
