@@ -1,13 +1,18 @@
 <script setup>
-import { computed, ref } from 'vue'
+import { ref } from 'vue'
 
 const gotPoints = ref('')
 const maxPoints = ref('')
 
+let percentage
+let grade
+
 function getPercentage() {
-	let percentage
 	if (!gotPoints.value || !maxPoints.value) {
-		percentage = 'Uzupełnij oba pola'
+		percentage = 'Uzupełnij oba pola...'
+		return percentage
+	} else if (gotPoints.value > maxPoints.value) {
+		percentage = 'Maksymalne punkty muszą być większe od zdobytych...'
 		return percentage
 	} else {
 		percentage = gotPoints.value / maxPoints.value * 100
@@ -15,6 +20,54 @@ function getPercentage() {
 	}
 }
 
+function getGrade() {
+	if (!gotPoints.value || !maxPoints.value) {
+		grade = 'Uzupełnij oba pola...'
+		return grade
+	} else if (gotPoints.value > maxPoints.value) {
+		grade = 'Maksymalne punkty muszą być większe od zdobytych...'
+		return grade
+	} else if (percentage >= 99) {
+		grade = '6'
+		return grade
+	} else if (percentage >= 95) {
+		grade = '5'
+		return grade
+	} else if (percentage >= 90) {
+		grade = '5 -'
+		return grade
+	} else if (percentage >= 85) {
+		grade = '4 +'
+		return grade
+	} else if (percentage >= 80) {
+		grade = '4'
+		return grade
+	} else if (percentage >= 75) {
+		grade = '4 -'
+		return grade
+	} else if (percentage >= 70) {
+		grade = '3 +'
+		return grade
+	} else if (percentage >= 60) {
+		grade = '3'
+		return grade
+	} else if (percentage >= 50) {
+		grade = '3 -'
+		return grade
+	} else if (percentage >= 47) {
+		grade = '2 +'
+		return grade
+	} else if (percentage >= 44) {
+		grade = '2'
+		return grade
+	} else if (percentage >= 40) {
+		grade = '2 -'
+		return grade
+	} else {
+		grade = '1'
+		return grade
+	}
+}
 </script>
 
 <template>
@@ -40,7 +93,7 @@ function getPercentage() {
 
 			<div class="box">
 				<h3>Sugerowana ocena</h3>
-				<p></p>
+				<p>{{ getGrade() }}</p>
 			</div>
 
 </div>
