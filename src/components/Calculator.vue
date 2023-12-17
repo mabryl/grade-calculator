@@ -16,8 +16,8 @@ function getPercentage() {
 		percentage = 'Maksymalne punkty muszą być większe od zdobytych...'
 		return percentage
 	} else {
-		percentage = gotPoints.value / maxPoints.value * 100
-		return `${percentage.toFixed(1)} %`
+		percentage = gotPoints.value * 100 / maxPoints.value
+		return `${percentage.toFixed()} %`
 	}
 }
 
@@ -28,9 +28,10 @@ function gradeFivePoints() {
 	} else if (gotPoints.value > maxPoints.value) {
 			grade = '...'
 			return grade
-		} else {
-				grade = percentage / 10 * 0.5
-				return grade.toFixed(1)
+	} else {
+			grade = Math.ceil(percentage) * 0.5 / 10
+			grade = Math.round(grade * 10) / 10
+			return grade
 			}
 }
 
@@ -42,8 +43,9 @@ function gradeTenPoints() {
 			grade = '...'
 			return grade
 		} else {
-				grade = percentage / 10
-				return grade.toFixed(1)
+				grade = Math.ceil(percentage) / 10
+				grade = Math.round(grade * 10) / 10
+				return grade
 			}
 	}
 
@@ -55,8 +57,9 @@ function gradeTwentyPoints() {
 			grade = '...'
 			return grade
 		} else {
-				grade = percentage / 10 * 2
-				return grade.toFixed(1)
+				grade = Math.ceil(percentage) * 2 / 10
+				grade = Math.round(grade * 10) / 10
+				return grade
 			}
 }
 
@@ -113,7 +116,8 @@ input::-webkit-inner-spin-button {
 }
 
 input[type=number] {
-	-moz-appearance: textfield;
+	padding: 10px;
+	appearance: textfield;
 }
 
 p {
