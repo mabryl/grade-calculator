@@ -13,6 +13,7 @@
 .footer {
   flex-shrink: 0;
 	padding-bottom: 20px;
+	font-size: small;
 }
 
 </style>

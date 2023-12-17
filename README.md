@@ -2,4 +2,6 @@
 
 A simple app that calculates the percentage of points that a student achieved on a test and displays the recommended grade for their score
 
-App is available on kalkulator-ocen.surge.sh
+Please note that this calculator utilizes a special grading system used by the school that it was created for
+
+App available on kalkulator-ocen.surge.sh

@@ -7,6 +7,7 @@ const maxPoints = ref('')
 let percentage
 let grade
 
+// I know that this is bad and not DRY at all...
 function getPercentage() {
 	if (!gotPoints.value || !maxPoints.value) {
 		percentage = 'Uzupełnij oba pola...'
@@ -16,87 +17,87 @@ function getPercentage() {
 		return percentage
 	} else {
 		percentage = gotPoints.value / maxPoints.value * 100
-		return `${percentage.toFixed(2)} %`
+		return `${percentage.toFixed(1)} %`
 	}
 }
 
-function getGrade() {
+function gradeFivePoints() {
 	if (!gotPoints.value || !maxPoints.value) {
-		grade = 'Uzupełnij oba pola...'
+		grade = '...'
 		return grade
 	} else if (gotPoints.value > maxPoints.value) {
-		grade = 'Maksymalne punkty muszą być większe od zdobytych...'
-		return grade
-	} else if (percentage >= 99) {
-		grade = '6'
-		return grade
-	} else if (percentage >= 95) {
-		grade = '5'
-		return grade
-	} else if (percentage >= 90) {
-		grade = '5 -'
-		return grade
-	} else if (percentage >= 85) {
-		grade = '4 +'
-		return grade
-	} else if (percentage >= 80) {
-		grade = '4'
-		return grade
-	} else if (percentage >= 75) {
-		grade = '4 -'
-		return grade
-	} else if (percentage >= 70) {
-		grade = '3 +'
-		return grade
-	} else if (percentage >= 60) {
-		grade = '3'
-		return grade
-	} else if (percentage >= 50) {
-		grade = '3 -'
-		return grade
-	} else if (percentage >= 47) {
-		grade = '2 +'
-		return grade
-	} else if (percentage >= 44) {
-		grade = '2'
-		return grade
-	} else if (percentage >= 40) {
-		grade = '2 -'
-		return grade
-	} else {
-		grade = '1'
-		return grade
-	}
+			grade = '...'
+			return grade
+		} else {
+				grade = percentage / 10 * 0.5
+				return grade.toFixed(1)
+			}
 }
+
+function gradeTenPoints() {
+	if (!gotPoints.value || !maxPoints.value) {
+		grade = '...'
+		return grade
+	} else if (gotPoints.value > maxPoints.value) {
+			grade = '...'
+			return grade
+		} else {
+				grade = percentage / 10
+				return grade.toFixed(1)
+			}
+	}
+
+function gradeTwentyPoints() {
+	if (!gotPoints.value || !maxPoints.value) {
+		grade = '...'
+		return grade
+	} else if (gotPoints.value > maxPoints.value) {
+			grade = '...'
+			return grade
+		} else {
+				grade = percentage / 10 * 2
+				return grade.toFixed(1)
+			}
+}
+
 </script>
 
 <template>
-<div class="calc-container">
+	<div class="calc-container">
 
-	<h1>Kalkulator ocen</h1>
+		<h1>Kalkulator ocen</h1>
 
-			<div class="box">
-				<h3>Zdobyte punkty</h3>
-				<input v-model.number="gotPoints" placeholder="Liczba zdobytych punktów">
-			</div>
+				<div class="box">
+					<h3>Zdobyte punkty</h3>
+					<input v-model.number="gotPoints" type="number" placeholder="Liczba zdobytych punktów">
+				</div>
 
-			<div class="box">
-				<h3>Maksymalne punkty</h3>
-				<input v-model.number="maxPoints" placeholder="Maksymalna liczba punktów">
-			</div>
+				<div class="box">
+					<h3>Maksymalne punkty</h3>
+					<input v-model.number="maxPoints" type="number" placeholder="Maksymalna liczba punktów">
+				</div>
 
+				<div class="box">
+					<h3>Procentowo</h3>
+					<p>{{ getPercentage() }}</p>
+				</div>
 
-			<div class="box">
-				<h3>Procent zdobytych punktów</h3>
-				<p>{{ getPercentage() }}</p>
-			</div>
+				<div class="box">
+					<h3>5 punktów</h3>
+					<p>{{ gradeFivePoints() }}</p>
+				</div>
 
-			<div class="box">
-				<h3>Sugerowana ocena</h3>
-				<p>{{ getGrade() }}</p>
-			</div>
+				<div class="box">
+					<h3>10 punktów</h3>
+					<p>{{ gradeTenPoints() }}</p>
+				</div>
 
-</div>
+				<div class="box">
+					<h3>20 punktów</h3>
+					<p>{{ gradeTwentyPoints() }}</p>
+				</div>
+
+	</div>
 </template>
 
 <style>
