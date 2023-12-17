@@ -17,7 +17,7 @@ function getPercentage() {
 		return percentage
 	} else {
 		percentage = gotPoints.value * 100 / maxPoints.value
-		return `${percentage.toFixed()} %`
+		return `${Math.round(percentage)} %`
 	}
 }
 
@@ -29,7 +29,7 @@ function gradeFivePoints() {
 			grade = '...'
 			return grade
 	} else {
-			grade = Math.ceil(percentage) * 0.5 / 10
+			grade = Math.round(percentage) * 0.5 / 10
 			grade = Math.round(grade * 10) / 10
 			return grade
 			}
@@ -43,7 +43,7 @@ function gradeTenPoints() {
 			grade = '...'
 			return grade
 		} else {
-				grade = Math.ceil(percentage) / 10
+				grade = Math.round(percentage) / 10
 				grade = Math.round(grade * 10) / 10
 				return grade
 			}
@@ -57,7 +57,7 @@ function gradeTwentyPoints() {
 			grade = '...'
 			return grade
 		} else {
-				grade = Math.ceil(percentage) * 2 / 10
+				grade = Math.round(percentage) * 2 / 10
 				grade = Math.round(grade * 10) / 10
 				return grade
 			}
